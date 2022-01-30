@@ -64,8 +64,8 @@ app.use(methodOverride('newMethod'));
 
 /*=======================ROUTES========================*/
 /*routes - taking connection from rotues-default-defaultRoutes.js*/
-const defaultRoutes = require('./routes/defaultRoutes')
-const adminRoutes = require('./routes/adminRoutes')
+const defaultRoutes = require('./routes/defaultRoutes');
+const adminRoutes = require('./routes/adminRoutes');
 
 app.use('/', defaultRoutes);
 app.use('/admin', adminRoutes)

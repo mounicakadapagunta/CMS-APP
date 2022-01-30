@@ -1,14 +1,12 @@
 const express = require('express');
 const router = express.Router();
 const adminController = require('../controllers/adminController');
-//const { isUserAuthenticated } = require("../config/customFunctions");
+const { isUserAuthenticated } = require("../config/customFunctions");
 
 
 
 // router.all('/*', isUserAuthenticated, (req, res, next) => {
-
 //     req.app.locals.layout = 'admin';
-
 //     next();
 // });
 
@@ -57,40 +55,10 @@ router.route('/category/edit/:id')
 /* ADMIN COMMENT ROUTES */
 router.route('/comment')
     .get(adminController.getComments);
-
+//exporting router to use it in other files
 module.exports = router;
 
 
 
 
 
-/*const express = require('express');
-const router = express.Router();
-const adminController = require('../controllers/adminController')
-
-router.all('/', (req, res, next) => {
-    req.app.locals.layout = 'admin';
-    next();
-})
-//home page 
-router.route('/')
-    .get(adminController.index);
-
-//directs to posts page 
-router.route('/posts')
-    .get(adminController.getPosts)
-
-
-///directs to create post page 
-router.route('/posts/create')
-    .get(adminController.createPosts)
-    .post(adminController.submitPosts);
-
-
-router.route('/posts/edit/:id')
-    .get(adminController.getEditPostPage)
-    .put(adminController.submitEditPostPage);
-
-//exporting router to use it in other files *
-module.exports = router; 
-*/
