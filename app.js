@@ -2,13 +2,15 @@ const express = require('express');
 const mongoose = require('mongoose');
 const path = require('path');
 const exphbs = require('express-handlebars');
-// import { engine } from 'express-handlebars';
-// import { handlebars } from 'hbs';
 const { mongoDbUrl, PORT, globalVariables } = require('./config/configuration')
 const flash = require('connect-flash');
 const session = require('express-session');
+const methodOverride = require('method-override');
+const { selectOption } = require('./config/customFunctions');
+const fileUpload = require('express-fileupload');
 
 const app = express();
+
 /*===============DB CONNECTION==========================*/
 //configure mongoose to connect to MongoDB 
 mongoose.connect(mongoDbUrl, { useNewUrlParser: true })
@@ -29,7 +31,7 @@ app.use(express.urlencoded({ extended: true }));
 //to match the paths of public folder
 app.use(express.static(path.join(__dirname, 'public')))
 
-/*flash and session */
+/*==================flash and session====================*/
 app.use(session({
     secret: 'any secret',
     saveUninitialized: true,
@@ -37,26 +39,34 @@ app.use(session({
 }));
 app.use(flash());
 
-app.use(globalVariables)
+
+/*===================GLOBAL VARIABLES=====================*/
+
+app.use(globalVariables);
 
 
+/*====================FILE UPLOAD MIDDLEWARE================ */
 
-
-
+app.use(fileUpload());
 
 
 /*==================VIEW ENGINE SETUP=====================*/
 
 //*setup view engine to use handle bars */
-app.engine('handlebars', exphbs.engine({ defaultLayout: "default" }))
+app.engine('handlebars', exphbs.engine({ defaultLayout: "default", helpers: { select: selectOption } }))
 app.set('view engine', 'handlebars');
 
 
+/*=================METHOD OVERRIDE MIDDLEWARE================ */
+app.use(methodOverride('newMethod'));
 
-/*=================ROUTES========================*/
+
+
+/*=======================ROUTES========================*/
 /*routes - taking connection from rotues-default-defaultRoutes.js*/
 const defaultRoutes = require('./routes/defaultRoutes')
 const adminRoutes = require('./routes/adminRoutes')
+
 app.use('/', defaultRoutes);
 app.use('/admin', adminRoutes)
 
