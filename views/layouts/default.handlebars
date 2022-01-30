@@ -1,0 +1,28 @@
+<!-- from views-partials-default-header.handlebars --->
+{{!-- HEADER --}}
+    {{> default/header}}
+
+<!-- from views-partials-default-topnavigation.handlebars-->
+{{!-- NAV BAR --}}
+    {{>default/top-navigation}}
+
+{{!-- HEADING LINES --}}
+<!-- Page header with logo and tagline-->
+    <header class="py-5 bg-light border-bottom mb-4">
+        <div class="container">
+            <div class="text-center my-5">
+                <h1 class="fw-bolder">Welcome to CMS</h1>
+                <p class="lead mb-0">A Bootstrap 5 starter layout for your next blog homepage</p>
+            </div>
+        </div>
+    </header>
+{{!-- BODY --}}
+<!--from views-default-index.handlebars-->
+    <div class="container">
+        {{{body}}}
+        
+    </div>
+{{!-- FOOTER --}}
+<!-- views-partials-default-footer.handlebars-->
+    {{>default/footer}}
+ 
