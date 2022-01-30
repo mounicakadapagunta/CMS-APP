@@ -52,6 +52,7 @@ app.engine('handlebars', exphbs.engine({ defaultLayout: "default" }))
 app.set('view engine', 'handlebars');
 
 
+
 /*=================ROUTES========================*/
 /*routes - taking connection from rotues-default-defaultRoutes.js*/
 const defaultRoutes = require('./routes/defaultRoutes')
