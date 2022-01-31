@@ -5,10 +5,14 @@ const { isUserAuthenticated } = require("../config/customFunctions");
 
 
 
-// router.all('/*', isUserAuthenticated, (req, res, next) => {
-//     req.app.locals.layout = 'admin';
+//  router.all('/*', isUserAuthenticated, (req, res, next) => {
+//      req.app.locals.layout = 'admin';
 //     next();
-// });
+//  });
+router.all('/*', (req, res, next) => {
+    req.app.locals.layout = 'admin';
+    next();
+});
 
 /* DEFAULT ADMIN INDEX ROUTE*/
 
