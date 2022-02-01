@@ -77,15 +77,14 @@ module.exports = {
     submitEditPostPage: (req, res) => {
         const commentsAllowed = !!req.body.allowComments;
         const id = req.params.id;
-        Post.findById(id).lean()
+        Post.findById(id)
             .then(post => {
                 post.title = req.body.title;
                 post.status = req.body.status;
                 post.allowComments = commentsAllowed;
                 post.description = req.body.description;
                 post.category = req.body.category;
-
-
+                //calling save function 
                 post.save().then(updatePost => {
                     req.flash('success-message', `The Post ${updatePost.title} has been updated.`);
                     res.redirect('/admin/posts');
@@ -95,7 +94,7 @@ module.exports = {
 
     deletePost: (req, res) => {
 
-        Post.findByIdAndDelete(req.params.id)
+        Post.findByIdAndDelete(req.params.id).lean()
             .then(deletedPost => {
                 req.flash('success-message', `The post ${deletedPost.title} has been deleted.`);
                 res.redirect('/admin/posts');
@@ -129,7 +128,7 @@ module.exports = {
 
         const cats = await Category.find();
 
-        Category.findById(catId).then(cat => {
+        Category.findById(catId).lean().then(cat => {
 
             res.render('admin/category/edit', { category: cat, categories: cats });
         });
@@ -141,7 +140,7 @@ module.exports = {
         const newTitle = req.body.name;
 
         if (newTitle) {
-            Category.findById(catId).then(category => {
+            Category.findById(catId).lean().then(category => {
 
                 category.title = newTitle;
 
@@ -155,7 +154,7 @@ module.exports = {
 
     /* COMMENT ROUTE SECTION*/
     getComments: (req, res) => {
-        Comment.find()
+        Comment.find().lean()
             .populate('user')
             .then(comments => {
                 res.render('admin/comments/index', { comments: comments });
