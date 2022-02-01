@@ -14,11 +14,13 @@ module.exports = {
 
 
     loginGet: (req, res) => {
-        res.render('default/login')
+        res.render('default/login', { message: req.flash('error') });
     },
     loginPost: (req, res) => {
         res.render('admin')
     },
+
+    /*REGISTER ROUTES */
     registerGet: (req, res) => {
         res.render('default/register')
     },
