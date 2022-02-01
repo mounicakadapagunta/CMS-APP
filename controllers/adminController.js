@@ -1,4 +1,3 @@
-
 const Post = require('../models/PostModel').Post;
 const Category = require('../models/CategoryModel').Category;
 const Comment = require('../models/CommentModel').Comment;
@@ -13,10 +12,8 @@ module.exports = {
 
 
     /* ADMIN POSTS ENDPOINTS */
-
-
     getPosts: (req, res) => {
-        Post.find()
+        Post.find().lean()
             .populate('category')
             .then(posts => {
                 res.render('admin/posts/index', { posts: posts });
@@ -25,7 +22,7 @@ module.exports = {
 
 
     getCreatePostPage: (req, res) => {
-        Category.find().then(cats => {
+        Category.find().lean().then(cats => {
 
             res.render('admin/posts/create', { categories: cats });
         });
@@ -69,7 +66,7 @@ module.exports = {
     getEditPostPage: (req, res) => {
         const id = req.params.id;
 
-        Post.findById(id)
+        Post.findById(id).lean()
             .then(post => {
                 Category.find().then(cats => {
                     res.render('admin/posts/edit', { post: post, categories: cats });
@@ -80,7 +77,7 @@ module.exports = {
     submitEditPostPage: (req, res) => {
         const commentsAllowed = !!req.body.allowComments;
         const id = req.params.id;
-        Post.findById(id)
+        Post.findById(id).lean()
             .then(post => {
                 post.title = req.body.title;
                 post.status = req.body.status;
@@ -105,7 +102,6 @@ module.exports = {
             });
     },
 
-
     /* ALL CATEGORY METHODS*/
     getCategories: (req, res) => {
 
@@ -126,7 +122,6 @@ module.exports = {
                 res.status(200).json(category);
             });
         }
-
     },
 
     getEditCategoriesPage: async (req, res) => {
@@ -134,11 +129,9 @@ module.exports = {
 
         const cats = await Category.find();
 
-
         Category.findById(catId).then(cat => {
 
             res.render('admin/category/edit', { category: cat, categories: cats });
-
         });
     },
 
@@ -168,8 +161,6 @@ module.exports = {
                 res.render('admin/comments/index', { comments: comments });
             })
     }
-
-
 };
 
 
