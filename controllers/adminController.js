@@ -140,7 +140,7 @@ module.exports = {
         const newTitle = req.body.name;
 
         if (newTitle) {
-            Category.findById(catId).lean().then(category => {
+            Category.findById(catId).then(category => {
 
                 category.title = newTitle;
 
