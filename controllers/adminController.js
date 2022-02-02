@@ -155,7 +155,7 @@ module.exports = {
     /* COMMENT ROUTE SECTION*/
     getComments: (req, res) => {
         Comment.find().lean()
-            .populate('user')
+            .populate('user') //populate the corresponding user im refereing to
             .then(comments => {
                 res.render('admin/comments/index', { comments: comments });
             })
