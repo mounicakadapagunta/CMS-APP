@@ -1,11 +1,12 @@
-const express = require('express')
+const express = require('express');
 const router = express.Router();
-const defaultController = require('../controllers/defaultController')
+const defaultController = require('../controllers/defaultController');
 const passport = require('passport');
-const localStatergy = require('passport-local');
+const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcryptjs');
-const User = require('../models/UserModel').User
-
+const User = require('../models/UserModel').User;
+// const singlePost = require('default/singlePost').singlePost;
+// const singlePost = require('../default/singlePost')
 router.all('/*', (req, res, next) => {
     req.app.locals.layout = 'default';
     next();
@@ -26,7 +27,7 @@ router.route('/')
 
 
 //defining local statergey
-passport.use(new localStatergy({
+passport.use(new LocalStrategy({
     usernameField: 'email',
     passReqToCallback: true
 }, (req, email, password, done) => {
@@ -43,7 +44,7 @@ passport.use(new localStatergy({
             if (!passwordMatched) {
                 return done(null, false, req.flash('error-message', 'Invalid user Name or Password'));
             }
-            return done(null, false, req.flash('success-message', 'Login successful'));
+            return done(null, user, req.flash('success-message', 'Login successful'));
 
         });
     });
@@ -73,12 +74,19 @@ router.route('/login')
         successRedirect: '/admin',
         failureRedirect: '/login',
         failureFlash: true,
-        sucessFlash: true,
+        successFlash: true,
         session: true
     }), defaultController.loginPost)
 
 router.route('/register')
     .get(defaultController.registerGet)
     .post(defaultController.registerPost)
+
+
+router.route('/post/:id')
+    .get(defaultController.singlePost);
+
+// router.route('/post/id')
+//     .get(defaultController.singlePost);
 
 module.exports = router;

@@ -10,6 +10,7 @@ const { selectOption } = require('./config/customFunctions');
 const fileUpload = require('express-fileupload');
 const Handlebars = require('handlebars');
 const { allowInsecurePrototypeAccess } = require('@handlebars/allow-prototype-access');
+var passport = require('passport');
 
 const app = express();
 
@@ -40,6 +41,7 @@ app.use(session({
     resave: true
 }));
 app.use(flash());
+app.use(passport.authenticate('session'));
 
 
 /*===================GLOBAL VARIABLES=====================*/
