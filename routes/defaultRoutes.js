@@ -5,14 +5,15 @@ const passport = require('passport');
 const LocalStrategy = require('passport-local').Strategy;
 const bcrypt = require('bcryptjs');
 const User = require('../models/UserModel').User;
-// const singlePost = require('default/singlePost').singlePost;
-// const singlePost = require('../default/singlePost')
+
+
+
 router.all('/*', (req, res, next) => {
     req.app.locals.layout = 'default';
     next();
 })
 
-//getting router setup from controllers-defaultcontrollers
+//getting router setup from controllers-defaultControllers
 //created a router object and a route function 
 //this matches by path and we can do get, post, put, delete...
 //for get method it will look for index method which is inside defaultControllers.js
@@ -25,8 +26,8 @@ router.route('/')
 
 
 
-
-//defining local statergey
+//login authentication
+//defining local strategy
 passport.use(new LocalStrategy({
     usernameField: 'email',
     passReqToCallback: true
@@ -50,6 +51,7 @@ passport.use(new LocalStrategy({
     });
 }));
 
+// authentication
 passport.serializeUser(function (user, done) {
     done(null, user.id);
 });
@@ -59,15 +61,8 @@ passport.deserializeUser(function (id, done) {
     })
 })
 
-
-
-
-
-
-
-
-
 //no inspection JS Check function signatures
+//login page 
 router.route('/login')
     .get(defaultController.loginGet)
     .post(passport.authenticate('local', {
@@ -77,16 +72,22 @@ router.route('/login')
         successFlash: true,
         session: true
     }), defaultController.loginPost)
-
+/**to get the register page and post the registered data */
 router.route('/register')
     .get(defaultController.registerGet)
     .post(defaultController.registerPost)
 
-
+/*to get the single post page */
 router.route('/post/:id')
     .get(defaultController.singlePost);
 
-// router.route('/post/id')
-//     .get(defaultController.singlePost);
+/*logout functionality*/
+router.get('/logout', (req, res) => {
+    req.logOut();
+    //req.flash('success-message', 'Logout was successful');
+    res.redirect('/');
+});
+
+
 
 module.exports = router;
