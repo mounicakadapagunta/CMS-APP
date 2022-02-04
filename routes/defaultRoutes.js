@@ -79,7 +79,8 @@ router.route('/register')
 
 /*to get the single post page */
 router.route('/post/:id')
-    .get(defaultController.singlePost);
+    .get(defaultController.getSinglePost)
+    .post(defaultController.submitComment);
 
 /*logout functionality*/
 router.get('/logout', (req, res) => {

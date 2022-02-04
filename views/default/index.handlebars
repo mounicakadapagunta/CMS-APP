@@ -3,14 +3,15 @@
     <!-- Blog Entries Column -->
     <div class="col-md-8">
 
-        <h1 class="my-4">Page Heading
-            <small>Secondary Text</small>
+        <h1 class="my-4">Welcome to CMS
+            <small>Explore Web Technologies</small>
         </h1>
 
         <!-- Blog Post -->
         {{#each posts}}
            <div class="card mb-4">
-                <img class="card-img-top" src="https://placeimg.com/750/300/tech" alt="Card image cap">
+                {{!-- <img class="card-img-top" src="{{post.file}}" alt="Card image cap"> --}}
+                <img class="card-img-top" src="{{file}}" alt="image">
                 <div class="card-body">
                     <h2 class="card-title">{{title}}</h2>
                     <p class="card-text">{{description}}</p>
@@ -39,7 +40,7 @@
     <!-- Sidebar Widgets Column -->
     <div class="col-md-4">
 
-        <!-- Search Widget -->
+        {{!-- <!-- Search Widget -->
         <div class="card my-4">
             <h5 class="card-header">Search</h5>
             <div class="card-body">
@@ -50,7 +51,7 @@
                 </span>
                 </div>
             </div>
-        </div>
+        </div> --}}
 
         <!-- Categories Widget -->
         <div class="card my-4">
@@ -74,10 +75,11 @@
 
         <!-- Side Widget -->
         <div class="card my-4">
-            <h5 class="card-header">Side Widget</h5>
+            <h5 class="card-header">Web Development</h5>
             <div class="card-body">
-                You can put anything you want inside of these side widgets. They are easy to use, and feature the new Bootstrap 4 card containers!
-            </div>
+               Web development is the work involved in developing a website for the Internet "World Wide Web" or an intranet 'a private network'Among Web professionals,
+                <br>"Web development" usually refers to the main non-design aspects of building Web sites: writing markup and coding.
+ </div>
         </div>
 
     </div>

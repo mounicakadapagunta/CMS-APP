@@ -1,6 +1,7 @@
 const Post = require('../models/PostModel').Post;
 const Category = require('../models/CategoryModel').Category;
 const Comment = require('../models/CommentModel').Comment;
+//const Comment = require('../models/CommentModel').Comment;
 const { isEmpty } = require('../config/customFunctions');
 
 module.exports = {
@@ -151,11 +152,10 @@ module.exports = {
             });
         }
     },
-
     /* COMMENT ROUTE SECTION*/
     getComments: (req, res) => {
-        Comment.find().lean()
-            .populate('user') //populate the corresponding user im refereing to
+        Comment.find()
+            .populate('user')
             .then(comments => {
                 res.render('admin/comments/index', { comments: comments });
             })

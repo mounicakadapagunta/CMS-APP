@@ -59,6 +59,7 @@ router.route('/category/edit/:id')
 /* ADMIN COMMENT ROUTES */
 router.route('/comment')
     .get(adminController.getComments);
+
 //exporting router to use it in other files
 module.exports = router;
 
